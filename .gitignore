@@ -17,9 +17,6 @@ npm-debug.log
 yarn-error.log
 .phpunit.result.cache
 
-# Docker
-!docker/db/.env
-!docker/web/.env
 
 # Code completion files
 .phpstorm.meta.php
@@ -29,10 +26,11 @@ _ide_helper_models.php
 # Rocketeer PHP task runner and deployment package. https://github.com/rocketeers/rocketeer
 .rocketeer/
 
-# SCSS
+# Webpack
 **/.sass-cache/*
 *.css.map
-**/style.css
+**/app.css
+**/app.js
 
 # IntelliJ project files
 *.iml
