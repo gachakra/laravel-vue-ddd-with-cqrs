@@ -1,5 +1,5 @@
 {
-    "name": "laravel/laravel",
+    "name": "gachakra/laravel-vue-ddd-with-cqrs",
     "type": "project",
     "description": "The Laravel Framework.",
     "keywords": [
