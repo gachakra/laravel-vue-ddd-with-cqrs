@@ -1,7 +1,7 @@
 # laravel-vue-ddd-with-cqrs
 ## Quick Start
 ```
-# cp .env.example files to .env files recursively when an .env file doesn't exist
+# copy all .env.example files to each .env file recursively (non-overwriting)
 # and generate laravel app key if not exists
 ./init.sh
 
