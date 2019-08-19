@@ -23,8 +23,8 @@ yarn-error.log
 mix-manifest.json
 **/.sass-cache/*
 *.css.map
-**/app.css
-**/app.js
+public/**/app.css
+public/**/app.js
 
 
 # Laravel Code completion files
