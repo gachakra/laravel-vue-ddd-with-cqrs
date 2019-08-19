@@ -23,16 +23,6 @@ services:
     networks:
       - laravel-vue-ddd-with-cqrs
 
-  composer:
-    build: ./docker/composer
-    container_name: composer
-    volumes:
-      - ./:/var/www/laravel-vue-ddd-with-cqrs
-    working_dir: /var/www/laravel-vue-ddd-with-cqrs
-    command: install --optimize-autoloader
-    networks:
-      - laravel-vue-ddd-with-cqrs
-
   app:
     build: ./docker/app
     container_name: app
@@ -41,7 +31,6 @@ services:
     depends_on:
       - mysql
       - redis
-      - composer
     volumes:
       - ./:/var/www/laravel-vue-ddd-with-cqrs
       - ./docker/app/var/log:/var/log/laravel:delegated
@@ -49,7 +38,7 @@ services:
     command: >
       ash -c
         "rc-service php-fpm start \
-        && ./docker/app/wait_for_composer_container_exit.sh \
+        && composer install --optimize-autoloader \
         && sudo chmod -R 777 storage/ bootstrap/cache \
         && sudo php artisan config:cache \
         && sudo php artisan cache:clear \
