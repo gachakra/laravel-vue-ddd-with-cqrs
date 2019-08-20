@@ -37,6 +37,9 @@ RUN apk add openrc \
     && rc-update add php-fpm default
 
 
+# set {current directory}/vender/bin to path, to able to run PHPUnit via `phpunit`
+ENV PATH $PATH:./vendor/bin
+
 
 ###########################################################
 # Composer
