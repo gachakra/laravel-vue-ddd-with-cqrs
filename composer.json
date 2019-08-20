@@ -11,6 +11,7 @@
         "php": "^7.2",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.8.*",
+        "laravel/passport": "^7.3",
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.8",
         "predis/predis": "^1.1"
@@ -69,9 +70,6 @@
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan ide-helper:generate",
             "php artisan ide-helper:meta"
-        ],
-        "test": [
-            "vendor/bin/phpunit"
         ]
     }
 }
