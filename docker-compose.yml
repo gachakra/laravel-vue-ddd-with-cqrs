@@ -50,12 +50,13 @@ services:
       ash -c
         "rc-service php-fpm start \
         && ./docker/app/wait_for_composer_container_exit.sh \
+        && ./laravel.generate_key.sh \
         && sudo chmod -R 777 storage/ bootstrap/cache \
-        && sudo php artisan config:cache \
+        && sudo php artisan clear-compiled \
         && sudo php artisan cache:clear \
         && sudo php artisan route:clear \
-        && sudo php artisan view:clear \
-        && sudo php artisan clear-compiled \
+        && sudo php artisan config:cache \
+        && sudo php artisan view:cache \
         && sudo php artisan migrate:fresh \
         && yarn \
         && yarn hot"

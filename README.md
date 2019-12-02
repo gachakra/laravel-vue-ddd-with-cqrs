@@ -7,5 +7,8 @@
 
 # build docker images and launch containers
 docker-compose build --parallel && docker-compose up -d
+
+# login docker app container
+docker exec -it app ash
 ```
 then open `http://localhost:8888` in your browser
