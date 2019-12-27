@@ -3,7 +3,7 @@
 ```
 # - copy all .env.example files to each .env file recursively (non-overwriting)
 # - generate laravel app key if not exists
-# - build and launch docker containers
+# - build docker images and launch docker containers
 ./init.sh
 
 # build docker images and launch containers manually
