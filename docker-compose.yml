@@ -8,7 +8,7 @@ services:
     ports:
       - "3333:3306"
     volumes:
-      - ./docker/mysql/etc/my.cnf:/etc/mysql/my.cnf
+      - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
       - ./storage/logs/mysql/:/var/log/:delegated
     networks:
       - laravel-vue-ddd-with-cqrs
