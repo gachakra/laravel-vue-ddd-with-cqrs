@@ -1,11 +1,12 @@
 # laravel-vue-ddd-with-cqrs
 ## Quick Start
 ```
-# copy all .env.example files to each .env file recursively (non-overwriting)
-# and generate laravel app key if not exists
+# - copy all .env.example files to each .env file recursively (non-overwriting)
+# - generate laravel app key if not exists
+# - build docker images and launch containers
 ./init.sh
 
-# build docker images and launch containers
+# build docker images and launch containers manually
 docker-compose build --parallel && docker-compose up -d
 
 # login docker app container
