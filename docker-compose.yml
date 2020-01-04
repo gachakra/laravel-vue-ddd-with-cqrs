@@ -51,13 +51,13 @@ services:
         "rc-service php-fpm start \
         && ./docker/app/wait-for.composer-container-exit.sh \
         && ./laravel.generate-key.sh \
-        && sudo chmod -R 777 storage/ bootstrap/cache \
-        && sudo php artisan clear-compiled \
-        && sudo php artisan cache:clear \
-        && sudo php artisan route:clear \
-        && sudo php artisan config:cache \
-        && sudo php artisan view:cache \
-        && sudo php artisan migrate:fresh \
+        && chmod -R 777 storage/ bootstrap/cache \
+        && php artisan clear-compiled \
+        && php artisan cache:clear \
+        && php artisan route:clear \
+        && php artisan config:cache \
+        && php artisan view:cache \
+        && php artisan migrate:fresh \
         && yarn \
         && yarn dev \
         && yarn hot"
