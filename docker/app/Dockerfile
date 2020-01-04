@@ -1,4 +1,4 @@
-FROM php:7.3-fpm-alpine
+FROM php:7.4-fpm-alpine
 
 MAINTAINER gachakra <gachakra.kangin@notonza.dev>
 
@@ -15,7 +15,7 @@ RUN apk --update add tzdata \
 # Libraries
 RUN apk upgrade --update \
     && apk --no-cache add \
-       icu-dev autoconf make g++ gcc sudo vim unzip zip mysql-client ncurses-dev libxslt-dev libc-dev
+       icu-dev autoconf make g++ gcc sudo vim unzip zip mysql-client ncurses-dev libxslt-dev libc-dev oniguruma-dev
 
 
 ########################################################################
@@ -23,7 +23,7 @@ RUN apk upgrade --update \
 COPY php.ini /usr/local/etc/php/
 
 RUN docker-php-ext-install -j$(nproc) iconv intl mbstring pdo_mysql opcache \
-    && pecl install xdebug-2.7.0beta1 \
+    && pecl install xdebug \
     && docker-php-ext-enable xdebug
 
 
