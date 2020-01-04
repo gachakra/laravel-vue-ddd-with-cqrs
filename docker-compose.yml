@@ -23,6 +23,16 @@ services:
     networks:
       - laravel-vue-ddd-with-cqrs
 
+  composer:
+    build: ./docker/composer
+    container_name: composer
+    volumes:
+      - ./:/var/www/laravel-vue-ddd-with-cqrs
+    working_dir: /var/www/laravel-vue-ddd-with-cqrs
+    command: install --optimize-autoloader
+    networks:
+      - laravel-vue-ddd-with-cqrs
+
   app:
     build: ./docker/app
     container_name: app
