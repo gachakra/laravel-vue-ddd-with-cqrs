@@ -10,6 +10,7 @@
 ```
 
 then open `http://localhost:8888` in your browser
+
 npm `Hot Module Replacement` enabled
 
 
