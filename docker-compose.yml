@@ -8,8 +8,8 @@ services:
     ports:
       - "3333:3306"
     volumes:
-      - ./docker/mysql/var/log:/var/log:delegated
-      - ./docker/mysql/etc/my.cnf:/etc/mysql/my.cnf
+      - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
+      - ./storage/logs/mysql/:/var/log/:delegated
     networks:
       - laravel-vue-ddd-with-cqrs
 
@@ -33,20 +33,22 @@ services:
       - redis
     volumes:
       - ./:/var/www/laravel-vue-ddd-with-cqrs
-      - ./docker/app/var/log:/var/log/laravel:delegated
+      - ./storage/logs/laravel/:/var/log/laravel/:delegated
     working_dir: /var/www/laravel-vue-ddd-with-cqrs
     command: >
       ash -c
         "rc-service php-fpm start \
-        && composer install --optimize-autoloader \
-        && sudo chmod -R 777 storage/ bootstrap/cache \
-        && sudo php artisan config:cache \
-        && sudo php artisan cache:clear \
-        && sudo php artisan route:clear \
-        && sudo php artisan view:clear \
-        && sudo php artisan clear-compiled \
-        && sudo php artisan migrate:fresh \
+        && ./docker/app/wait-for.composer-container-exit.sh \
+        && ./laravel.generate-key.sh \
+        && chmod -R 777 storage/ bootstrap/cache \
+        && php artisan clear-compiled \
+        && php artisan cache:clear \
+        && php artisan route:clear \
+        && php artisan config:cache \
+        && php artisan view:cache \
+        && php artisan migrate:fresh \
         && yarn \
+        && yarn dev \
         && yarn hot"
     tty: true
     networks:
@@ -61,7 +63,7 @@ services:
     volumes:
       - ./:/var/www/laravel-vue-ddd-with-cqrs
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
-      - ./docker/nginx/var/log:/var/log/nginx:delegated
+      - ./storage/logs/nginx/:/var/log/nginx/:delegated
     depends_on:
       - app
     networks:
