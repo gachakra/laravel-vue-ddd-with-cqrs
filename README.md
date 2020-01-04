@@ -9,9 +9,8 @@
 ./init.sh
 ```
 
-then open `http://localhost:8888` in your browser
-
-npm `Hot Module Replacement` enabled
+then open `http://localhost:8888` in your browser.<br>
+npm `Hot Module Replacement` enabled from the start in the app container server.
 
 
 ## Login docker container
