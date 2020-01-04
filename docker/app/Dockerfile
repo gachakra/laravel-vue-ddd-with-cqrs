@@ -23,8 +23,8 @@ RUN apk upgrade --update \
 COPY php.ini /usr/local/etc/php/
 
 RUN docker-php-ext-install -j$(nproc) iconv intl mbstring pdo_mysql opcache \
-    && pecl install xdebug \
-    && docker-php-ext-enable xdebug
+    && pecl install xdebug redis \
+    && docker-php-ext-enable xdebug redis
 
 
 ########################################################################
