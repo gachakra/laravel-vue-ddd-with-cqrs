@@ -24,9 +24,13 @@ docker exec -it app ash
 
 ## Build docker images and launch containers manually
 ```bash
-docker-compose build --parallel && docker-compose up -d
+# build in parallel
+docker-compose build --parallel
 
-# recreate all docker containers
+# build and launch in one liner
+docker-compose up -d --build
+
+# launch recreating all docker containers
 docker-compose up -d --force-recreate
 ```
 
