@@ -26,6 +26,9 @@ RUN docker-php-ext-install -j$(nproc) iconv intl mbstring pdo_mysql opcache \
     && pecl install xdebug \
     && docker-php-ext-enable xdebug
 
+# set {current directory}/vender/bin to path, so that able to run PHPUnit via just `phpunit`
+ENV PATH $PATH:./vendor/bin
+
 
 ########################################################################
 # register PHP-FPM to service

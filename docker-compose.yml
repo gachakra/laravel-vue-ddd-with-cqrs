@@ -49,9 +49,9 @@ services:
     command: >
       ash -c
         "rc-service php-fpm start \
+        && chmod -R 777 storage/ bootstrap/cache \
         && ./docker/app/wait-for.composer-container-exit.sh \
         && ./laravel.generate-key.sh \
-        && chmod -R 777 storage/ bootstrap/cache \
         && php artisan clear-compiled \
         && php artisan cache:clear \
         && php artisan route:clear \
