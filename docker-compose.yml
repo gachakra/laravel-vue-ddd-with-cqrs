@@ -3,7 +3,7 @@ version: '3.5'
 services:
   mysql:
     image: mysql:8.0.11
-    container_name: mysql
+    container_name: lvdc_mysql
     env_file: ./docker/mysql/.env
     ports:
       - "3333:3306"
@@ -15,7 +15,7 @@ services:
 
   redis:
     image: redis:latest
-    container_name: redis
+    container_name: lvdc_redis
     restart: always
     ports:
       - "6666:6379"
@@ -23,9 +23,26 @@ services:
     networks:
       - laravel-vue-ddd-with-cqrs
 
+  node:
+    build: ./docker/node
+    image: lvdc/node:latest
+    container_name: lvdc_node
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+    volumes:
+      - ./:/var/www/laravel-vue-ddd-with-cqrs
+    command: >
+      ash -c
+        "yarn && yarn dev"
+      tty: true
+    working_dir: /var/www/laravel-vue-ddd-with-cqrs
+    networks:
+      - laravel-vue-ddd-with-cqrs
+
   composer:
     build: ./docker/composer
-    container_name: composer
+    container_name: lvdc_composer
     volumes:
       - ./:/var/www/laravel-vue-ddd-with-cqrs
     working_dir: /var/www/laravel-vue-ddd-with-cqrs
@@ -35,13 +52,14 @@ services:
 
   app:
     build: ./docker/app
-    container_name: app
+    container_name: lvdc_app
     ports:
       - "8080:8080"
     depends_on:
       - mysql
       - redis
       - composer
+      - node
     volumes:
       - ./:/var/www/laravel-vue-ddd-with-cqrs
       - ./storage/logs/laravel/:/var/log/laravel/:delegated
@@ -50,16 +68,13 @@ services:
       ash -c
         "rc-service php-fpm start \
         && chmod -R 777 storage/ bootstrap/cache \
-        && ./docker/app/wait-for.composer-container-exit.sh \
+        && ./docker/app/wait-for-container-exit.sh composer \
         && ./laravel.generate-key.sh \
-        && php artisan clear-compiled \
-        && php artisan cache:clear \
-        && php artisan route:clear \
+        && php artisan optimize:clear \
         && php artisan config:cache \
         && php artisan view:cache \
         && php artisan migrate:fresh \
-        && yarn \
-        && yarn dev \
+        && ./docker/app/wait-for-container-exit.sh node \
         && yarn hot"
     tty: true
     networks:
@@ -67,7 +82,7 @@ services:
 
   nginx:
     image: nginx
-    container_name: nginx
+    container_name: lvdc_nginx
     restart: always
     ports:
       - "8888:80"
