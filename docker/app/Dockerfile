@@ -24,6 +24,7 @@ RUN apk upgrade --update \
         vim \
         unzip \
         zip \
+        lsof \
         mysql-client \
         ncurses-dev \
         libxslt-dev \

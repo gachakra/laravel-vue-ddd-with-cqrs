@@ -36,5 +36,8 @@ mix
                 port: '8080'
             }
         })
-        .version()
         .sourceMaps();
+
+if (mix.inProduction()) {
+    mix.version();
+}

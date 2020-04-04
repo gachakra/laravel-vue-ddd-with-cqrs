@@ -3,7 +3,7 @@
 container=$1
 count=0
 while ping -c1 "$container" &>/dev/null; do
-    if [[ "$count" -eq 10 ]]; then
+    if [[ "$count" -eq 60 ]]; then
         count=0
     fi
     if [[ "$count" -eq 0 ]]; then
@@ -11,5 +11,5 @@ while ping -c1 "$container" &>/dev/null; do
     fi
 
     count=$(expr ${count} + 1)
-    sleep 5
+    sleep 1
 done
