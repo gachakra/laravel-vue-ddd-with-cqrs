@@ -15,7 +15,11 @@ RUN apk --update add tzdata \
 # Libraries
 RUN apk upgrade --update \
     && apk --no-cache add \
-       sudo curl vim
+       bash \
+       sudo \
+       curl \
+       vim \
+       tini
 
 
 ########################################################################
@@ -26,5 +30,6 @@ RUN apk add --update nodejs nodejs-npm \
     && ln -s "$HOME/.yarn/bin/yarn" /usr/local/bin/yarn
 
 
-ENTRYPOINT ["/bin/sh", "/usr/local/bin/yarn"]
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+ENTRYPOINT ["/bin/ash", "/docker-entrypoint.sh"]
 CMD ["yarn"]
