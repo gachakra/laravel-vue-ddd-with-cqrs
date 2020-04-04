@@ -24,3 +24,7 @@ RUN apk add --update nodejs nodejs-npm \
     && touch ~/.bashrc \
     && curl -o- -L https://yarnpkg.com/install.sh | ash \
     && ln -s "$HOME/.yarn/bin/yarn" /usr/local/bin/yarn
+
+
+ENTRYPOINT ["/bin/sh", "/usr/local/bin/yarn"]
+CMD ["yarn"]

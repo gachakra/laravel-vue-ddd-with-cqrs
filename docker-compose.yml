@@ -23,10 +23,9 @@ services:
     networks:
       - laravel-vue-ddd-with-cqrs
 
-  node:
-    build: ./docker/node
-    image: lvdc/node:latest
-    container_name: lvdc_node
+  yarn:
+    build: ./docker/yarn
+    container_name: lvdc_yarn
     ports:
       - "3000:3000"
       - "3001:3001"
@@ -34,7 +33,10 @@ services:
       - ./:/var/www/laravel-vue-ddd-with-cqrs
     command: >
       ash -c
-        "yarn && yarn dev"
+        "npm rebuild node-sass \
+        && yarn cache clean \
+        && yarn \
+        && yarn dev"
       tty: true
     working_dir: /var/www/laravel-vue-ddd-with-cqrs
     networks:
@@ -59,7 +61,7 @@ services:
       - mysql
       - redis
       - composer
-      - node
+      - yarn
     volumes:
       - ./:/var/www/laravel-vue-ddd-with-cqrs
       - ./storage/logs/laravel/:/var/log/laravel/:delegated
@@ -74,7 +76,7 @@ services:
         && php artisan config:cache \
         && php artisan view:cache \
         && php artisan migrate:fresh \
-        && ./docker/app/wait-for-container-exit.sh node \
+        && ./docker/app/wait-for-container-exit.sh yarn \
         && yarn hot"
     tty: true
     networks:
