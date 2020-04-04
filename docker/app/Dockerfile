@@ -15,14 +15,32 @@ RUN apk --update add tzdata \
 # Libraries
 RUN apk upgrade --update \
     && apk --no-cache add \
-       icu-dev autoconf make g++ gcc sudo vim unzip zip mysql-client ncurses-dev libxslt-dev libc-dev oniguruma-dev
+        icu-dev \
+        autoconf \
+        make \
+        g++ \
+        gcc \
+        sudo \
+        vim \
+        unzip \
+        zip \
+        mysql-client \
+        ncurses-dev \
+        libxslt-dev \
+        libc-dev \
+        oniguruma-dev
 
 
 ########################################################################
 # PHP
 COPY php.ini /usr/local/etc/php/
 
-RUN docker-php-ext-install -j$(nproc) iconv intl mbstring pdo_mysql opcache \
+RUN docker-php-ext-install -j$(nproc) \
+        iconv \
+        intl \
+        mbstring \
+        pdo_mysql \
+        opcache \
     && pecl install xdebug redis \
     && docker-php-ext-enable xdebug redis
 

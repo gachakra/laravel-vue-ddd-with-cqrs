@@ -21,5 +21,13 @@ mix.js('resources/js/app.js', 'public/js')
             watchOptions: {
                 poll: 2000,
                 ignored: /node_modules/
+            },
+        })
+        .options({
+            hmrOptions: {
+                host: 'localhost',
+                port: '8080'
             }
-        });
+        })
+        .version()
+        .sourceMaps();
