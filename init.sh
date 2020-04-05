@@ -22,5 +22,5 @@ done
 
 ########################################################################
 # Build Docker images and launch containers
-docker-compose build --no-cache --parallel \
+docker-compose build --parallel \
 && docker-compose up -d --force-recreate

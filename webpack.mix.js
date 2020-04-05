@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const VuetifyLoader = require('vuetify-loader/lib/plugin');
 
 /*
  |--------------------------------------------------------------------------
@@ -11,16 +12,32 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+mix
+        .js('resources/js/app.js', 'public/js')
+        .sass('resources/sass/app.scss', 'public/css')
+        .webpackConfig({
+            plugins: [
+                new VuetifyLoader({
+                    options: {}
+                }),
+            ],
+            devServer: {
+                host: '0.0.0.0',
+                port: 8080
+            },
+            watchOptions: {
+                poll: 2000,
+                ignored: /node_modules/
+            },
+        })
+        .options({
+            hmrOptions: {
+                host: 'localhost',
+                port: '8080'
+            }
+        })
+        .sourceMaps();
 
-mix.webpackConfig({
-    devServer: {
-        host: '0.0.0.0',
-        port: 8080
-    },
-    watchOptions: {
-        poll: 2000,
-        ignored: /node_modules/
-    }
-});
+if (mix.inProduction()) {
+    mix.version();
+}
