@@ -15,7 +15,6 @@ RUN apk --update add tzdata \
 # Libraries
 RUN apk upgrade --update \
     && apk --no-cache add \
-       bash \
        sudo \
        curl \
        vim \

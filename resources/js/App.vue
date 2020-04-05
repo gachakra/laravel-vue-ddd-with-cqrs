@@ -14,33 +14,6 @@
 </template>
 
 <script>
-    const DaysOfWeek = {
-        values: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-
-        size: () => DaysOfWeek.values.length,
-
-        toString: (ordinal) => {
-            if (ordinal < 0 || ordinal >= DaysOfWeek.size) {
-                throw new Error();
-            }
-            return DaysOfWeek.values[ordinal];
-        }
-    }
-
-    const date = (function (date) {
-        const properties = {
-            year: date.getFullYear(),
-            month: date.getMonth(),
-
-            lastDate: () => new Date(properties.year, properties.month + 1, 0).getDate(),
-            dayOfWeek: (date) => {
-                const dayOrdinal = new Date(properties.year, properties.month, date).getDay()
-                return DaysOfWeek.toString(dayOrdinal)
-            }
-        }
-        return properties
-    }(new Date()))
-
     export default {
         data() {
             return {

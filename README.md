@@ -62,8 +62,6 @@ docker-compose run [--rm] composer dump-autoload
 ## Yarn
 #### Install packages
 ```bash
-docker-compose run [--rm] yarn
-# or
 docker-compose run [--rm] yarn install
 ```
 #### Update packages
