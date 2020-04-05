@@ -68,7 +68,7 @@ docker-compose run [--rm] yarn install
 ```bash
 docker-compose run [--rm] composer yarn upgrade --latest
 ```
-#### Add an package
+#### Add a package
 ```bash
 docker-compose run [--rm] composer yarn add [-D] <package_name>
 ```
