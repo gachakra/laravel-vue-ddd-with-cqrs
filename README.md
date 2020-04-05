@@ -13,16 +13,8 @@ then open `http://localhost:8888` in your browser.<br>
 npm `Hot Module Replacement` enabled from the start in the app container server.
 
 
-## Login docker container
-```bash
-docker exec -it <container_name> ash
-
-# login app container
-docker exec -it app ash
-```
-
-
-## Build docker images and launch containers manually
+## Handle Docker images and containers
+### Build images and launch containers manually
 ```bash
 # build in parallel
 docker-compose build --parallel
@@ -32,28 +24,53 @@ docker-compose up -d --build
 
 # launch recreating all docker containers
 docker-compose up -d --force-recreate
+
+# launch recreating specific a docker container
+# (--no-deps option avoid other depending containers launching)
+docker-compose up -d --force-recreate [--no-deps] <service_name>
+```
+
+### Login containers
+```bash
+# app container (built from alpine based image) 
+docker exec -it lvdc_app ash
+
+# other containers (build from debian based image)
+docker exec -it lvdc_mysql bash
+docker exec -it lvdc_redis bash
 ```
 
 
-## Install or update composer packages by itself
-### Install
+## Install or update packages by itself
+use `--rm` option if you want remove the container after its work is done.
+### Composer
+#### Install packages
 ```bash
-docker-compose run composer
-
-# or if you want remove container after install
-docker-compose run --rm composer
+docker-compose run [--rm] composer
 ```
-### Update
+#### Update package
 ```bash
-docker-compose run composer update
-
-# or if you want remove container after update
-docker-compose run --rm composer update
+docker-compose run [--rm] composer update
 ```
-### Dump-autoload
+#### Dump-autoload
 ```bash
-docker-compose run composer dump-autoload (or dumpautoload)
+docker-compose run [--rm] composer dumpautoload
+# or
+docker-compose run [--rm] composer dump-autoload
+```
 
-# or if you want remove container after dump-autoload
-docker-compose run --rm composer dump-autoload (or dumpautoload)
+## Yarn
+#### Install packages
+```bash
+docker-compose run [--rm] yarn
+# or
+docker-compose run [--rm] yarn install
+```
+#### Update packages
+```bash
+docker-compose run [--rm] composer yarn upgrade --latest
+```
+#### Add an package
+```bash
+docker-compose run [--rm] composer yarn add [-D] <package_name>
 ```
