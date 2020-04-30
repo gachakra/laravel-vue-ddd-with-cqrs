@@ -19,7 +19,7 @@
         "cross-env": "^7.0.2",
         "deepmerge": "^4.2.2",
         "fibers": "^4.0.2",
-        "jquery": "^3.2",
+        "jquery": "^3.5",
         "laravel-mix": "^5.0.4",
         "lodash": "^4.17.13",
         "node-sass": "^4.13.1",
