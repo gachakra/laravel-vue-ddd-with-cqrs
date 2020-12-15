@@ -1,5 +1,5 @@
 #!/usr/bin/env ash
-# Copied from https://github.com/composer/docker/blob/master/docker-entrypoint.sh
+# Based on https://github.com/composer/docker/blob/master/docker-entrypoint.sh
 
 isCommand() {
   # Retain backwards compatibility with common CI providers,
