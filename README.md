@@ -42,7 +42,7 @@ docker exec -it lvdc_redis bash
 
 
 ## Install or update packages by itself
-use `--rm` option if you want remove the container after its work is done.
+use `--rm` option if you want to remove the container after its work is done.
 ### Composer
 #### Install packages
 ```bash
